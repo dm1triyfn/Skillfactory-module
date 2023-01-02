@@ -16,4 +16,3 @@ for age in ages:
 if number_of_ticket > 3:
     money = money * 0.9
 print(f'Стоимость со скидкой - {money}')
-
