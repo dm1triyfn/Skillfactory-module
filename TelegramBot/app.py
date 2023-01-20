@@ -6,11 +6,14 @@ bot = telebot.TeleBot(token)
 
 @bot.message_handler(commands=['start'])
 def start(message: telebot.types.Message):
-    text = f'Привет, {message.chat.username}!\nЯ бот, который конвертирует валюту. Чтобы начать мною пользоваться, введите: \n' \
-            '<имя валюты> <имя валюты, в какую хотите перевести> <количество переводимой валюты> \n' \
-           '\n' \
-           'ВАЖНО!!! Название валюты вводится с маленькой буквы!\n' \
-           'Узнать мои возможности: /help'
+    text = '\n'.join((
+        f'Привет, {message.chat.username}!',
+        'Я бот, который конвертирует валюту. Чтобы начать мною пользоваться, введите: ',
+        '<имя валюты> <имя валюты, в какую хотите перевести> <количество переводимой валюты>',
+        ' ',
+        'ВАЖНО!!! Название валюты вводится с маленькой буквы!',
+        'Узнать мои возможности: /help'
+))
     bot.reply_to(message, text)
 
 @bot.message_handler(commands=['help'])
@@ -22,9 +25,7 @@ def help(message: telebot.types.Message):
 
 @bot.message_handler(commands=['values'])
 def values(message: telebot.types.Message):
-    text = 'Доступные валюты:'
-    for key in keys.keys():
-        text = '\n'.join((text, key))
+    text = 'Доступные валюты:\n' + '\n'.join(keys.keys())
     bot.reply_to(message, text)
 
 @bot.message_handler(content_types=['text'])
